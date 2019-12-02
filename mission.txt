@@ -1,0 +1,3 @@
+Target Audience -> Everybody who needs to calculate things
+Problem I will solve -> Create a functioning calculator
+Why its useful -> Lets people calculate things
