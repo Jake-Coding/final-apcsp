@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="kinematics.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Kinematic Equation Solver</title>
+</head>
+<body>
+    <form name="eqSelect">
+        <label for='equation'>Select the option for which you have 3 out of the 4 values: </label>
+        <br>
+        <select name="equation" id="eqs">
+            <option value="eq1">Final Velocity, Acceleration, Time, Initial Velocity</option>
+            <option value="eq2">Final Velocity, Acceleration, Change in X, Initial Velocity</option>
+            <option value="eq3">Acceleration, Time, Change in X, Initial Velocity</option>
+        </select>
+        <button id='solve' type='button'>Solve!</button>
+    </form>
+    <script src="kinematics.js"></script>
+</body>
+</html>
