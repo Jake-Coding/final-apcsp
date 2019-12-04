@@ -6,15 +6,31 @@
 //    EQUATION 3: delta(x) = 1/2 * a * t^2 + v0 * t (Given 3 of 4 [delta(x), a, t, v0] can find the last 1)
 //}
 function ready() {
+    let eqforms = [document.forms.equation1, document.forms.equation2, document.forms.equation3]
     let selection = document.forms.eqSelect.elements.equation
     solve.onclick = function() {
         bringUpForm(selection.value)
         console.log(selection.value)
     }
+    back.onclick = function() {
+        tomainmenu()
+    }
+    function tomainmenu() {
+        for (let index = 0; index < eqforms.length; index++) {
+            const element = eqforms[index];
+            element.classList.add('hidden')
+            
+        }
+        back.classList.add('hidden')
+        document.forms.eqSelect.classList.remove('hidden')
+    
+    }
 };
+
 function bringUpForm(equation)  {
     // console.log(document.forms.eqSelect.classList)
     document.forms.eqSelect.classList.add('hidden')
+    back.classList.remove('hidden')
     // console.log(document.forms.eqSelect.classList)
     if (equation == 'eq1') {
         document.forms.equation1.classList.remove('hidden')
