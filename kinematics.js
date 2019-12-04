@@ -20,6 +20,7 @@ function ready() {
         tomainmenu()
     }
     function tomainmenu() {
+        cleargraphs()
         for (let index = 0; index < eqforms.length; index++) {
             const element = eqforms[index];
             element.classList.add('hidden')
@@ -59,6 +60,54 @@ function bringUpForm(equation)  {
     };
 
 };
+function cleargraphs() {
+    Plotly.purge(atgraph)
+}
+function createATGraph(acceleration, time) {
+    let data = {};
+    data['a'] = []
+    data['t'] = []
+    
+    let oop= 0;
+    // oop is 0, time is -5
+    // oop is -something
+    if (time < 0) {
+        while (oop>(time)) {
+            data['t'].push(oop)
+            data['a'].push(acceleration)
+            oop -= Math.abs(time)/100
+    
+        };
+
+    }else if (time > 0) {
+        while (oop<(time)) {
+            data['t'].push(oop)
+            data['a'].push(acceleration)
+            oop += time/100
+    
+        };
+    }else {
+
+        while (oop<5) {
+            data['t'].push(oop)
+            data['a'].push(acceleration)
+            oop += 0.1
+    
+        };
+    }
+
+
+    let layout = {
+        
+    }
+    console.log(data)
+    trace = { x:data['t'], y:data['a'] , type:'scatter'}
+    fig = {
+        data: [trace],
+        layout:layout
+    }
+    Plotly.react(atgraph, fig)
+}
 function solveEquation3(delx, a, t, v0) {
     let valarray = [delx, a, t, v0];
     let nulls = 0;
@@ -191,20 +240,32 @@ function solveEquation1(v, a, t, v0) {
         try {
             if (v == null) {
                 // v = at + v0
+                v = a * t +v0
+                createATGraph(a, t)
+
                 return `Final Velocity: ${a * t + v0}`;
             }else if (a == null) {
                 // v = at + v0
                 // v - v0 = at
                 // (v-v0)/t = a
+                a = (v-v0)/t
+                createATGraph(a, t)
+
                 return `Acceleration: ${(v-v0)/t}`
             }else if (t == null) {
                 //v = at + v0
                 //(v-v0) = at
                 // (v-v0)/a = t
+                t = (v-v0)/a
+                createATGraph(a, t)
+
                 return `Time: ${(v-v0)/a}`
             }else if (v0 == null) {
                 //v = at + v0
                 // v- at = v0
+                v0 = v-(a*t)
+                createATGraph(a, t)
+
                 return `Initial Velocity: ${v-(a*t)}`
             }
             
