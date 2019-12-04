@@ -19,7 +19,7 @@
         <button id='solve' type='button'>Solve!</button>
     </form>
     <form name='equation1' class='hidden'>
-        <p>This is equation 1. This will use the equation "v = at + v0"</p>
+        <p>This is equation 1. This will use the equation "v = at + v<sub>0</sub>"</p>
         <h4 class='answer' id='eq1answer'></h4>
         <br>
         <br>
@@ -40,7 +40,7 @@
         <br>
     </form>
     <form name='equation2' class='hidden'>
-        <p>This is equation 2. It will use the equation "vf^2 = 2a*delta(x) * vi^2"</p>
+        <p>This is equation 2. It will use the equation "v<sub>f</sub><sup>2</sup> = 2a&#916x + v<sub>i</sub><sup>2</sup>"</p>
         <h4 class='answer' id='eq2answer'></h4>
         <br>
         <br>
@@ -61,7 +61,25 @@
         <br>
     </form>
     <form name='equation3' class='hidden'>
-        <p>This is equation 3</p>
+        <p>This is equation 3. It will use the equation "&#916x = 0.5at<sup>2</sup> + v<sub>0</sub>t"</p>
+        <h4 class='answer' id='eq3answer'></h4>
+        <br>
+        <br>
+        <label for="delx">Change in X: </label>
+        <input type="number" name="delx">
+        <br>
+        <br>
+        <label for="a">Acceleration: </label>
+        <input type="number" name="a">
+        <br>
+        <br>
+        <label for="v0">Initial Velocity: </label>
+        <input type="number" name="v0">
+        <br>
+        <br>
+        <label for="t">Time: </label>
+        <input type="number" name="t">
+        <br>
     </form>
     <button type='button' id='back' class='hidden'>Go back</button>
     <script src="kinematics.js"></script>

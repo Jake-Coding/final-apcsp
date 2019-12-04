@@ -5,6 +5,10 @@
 //    EQUATION 2: vf = sqrt(2a * delta(x) + vi^2) (Given 3 of 4 [vf, a, delta(x), vi], can find last one)
 //    EQUATION 3: delta(x) = 1/2 * a * t^2 + v0 * t (Given 3 of 4 [delta(x), a, t, v0] can find the last 1)
 //}
+// THINGS I LEARNED:
+    // String formatting in JS -> Use backticks, ${} as formatting
+    // Try/Catch blocks -> Do something. If there's an error, do something else. Finally, do something regardless
+    // parseFloat(value) -> Takes a string, returns a float. If the string doesn't yield a number, returns NaN (which is a value)
 function ready() {
     let eqforms = [document.forms.equation1, document.forms.equation2, document.forms.equation3]
     let selection = document.forms.eqSelect.elements.equation
@@ -47,10 +51,65 @@ function bringUpForm(equation)  {
 
     }else if (equation == 'eq3') {
         document.forms.equation3.classList.remove('hidden')
+        console.log(document.forms.equation3)
+        document.forms.equation3.onchange = function() {
+            eq3answer.innerHTML = solveEquation3(this.elements.delx.value, this.elements.a.value, this.elements.t.value, this.elements.v0.value)
+        }
 
     };
 
 };
+function solveEquation3(delx, a, t, v0) {
+    let valarray = [delx, a, t, v0];
+    let nulls = 0;
+    for (let index = 0; index < valarray.length; index++) {
+        const element = valarray[index];
+        if (element == '') {
+            valarray[index] = null;
+            nulls++;
+        }else {
+            valarray[index] = parseFloat(element);
+        };
+    };
+    delx = valarray[0]
+    a = valarray[1]
+    t = valarray[2]
+    v0 = valarray[3]
+    if (nulls == 1) {
+        try {
+            if (delx == null) {
+                // delta(x) = 1/2 * a * t^2 + v0 * t
+                return `Change in X: ${0.5 * a * t * t + (v0 * t)}`
+
+            }else if (a == null) {
+                //delta(x) = 1/2 * a * t^2 + v0 * t
+                // delx - (v0 * t) = 1/2t^2 * a
+                // 2(delx - (v0*t))/t^2 = a
+                return `Acceleration: ${2 * (delx - (v0 * t))/(t * t)}`
+            }else if (t == null) {
+                //delta(x) = 1/2 * a * t^2 + v0 * t
+                //0 = 1/2a t^2 + v0 * t - delx
+                //QUADRATIC FORMULA:
+                // (-b +- sqrt(b^2 - 4ac))/2a
+                // b = v0
+                // c = -delx
+                // a = 1/2a
+                // (-v0 +- sqrt(v0^2 - (2*a*-delx)))/a
+                return `Time: ${((-1 * v0) + Math.sqrt((v0 * v0) - (2 * a * (-1 * delx))))/a} OR ${((-1 * v0) - Math.sqrt((v0 * v0) - (2 * a * (-1 * delx))))/a}... This is because it evalutes to a quadratic equation, and the quadratic formula yields 2 results.`
+            }else if (v0 == null) {
+                //delta(x) = 1/2 * a * t^2 + v0 * t
+                //delx - 1/2at^2 = v0t
+                // (delx - 1/2at^2)/t = v0
+                return `Initial Velocity: ${(delx - (0.5 * a * t * t))/t}`
+            }
+        } catch (error) {
+            return `Something went wrong. Please re-enter your values. (Error:${error})`            
+        }
+    }else {
+        return 'Not enough values. (Or too many). Make sure you have 3.'
+    }
+
+}
 function solveEquation2(vf, a, delx, vi) { //Should be working.... TODO: Further testing
     let valarray = [vf, a, delx, vi];
     let nulls = 0;
