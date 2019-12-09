@@ -62,6 +62,7 @@ function bringUpForm(equation)  {
 };
 function cleargraphs() {
     Plotly.purge(atgraph)
+    Plotly.purge(vtgraph)
 }
 function createVTGraph(acceleration, time, initialvel) {
     let data = {};
@@ -234,12 +235,18 @@ function solveEquation3(delx, a, t, v0) {
         try {
             if (delx == null) {
                 // delta(x) = 1/2 * a * t^2 + v0 * t
+                delx = 0.5 * a * t * t + (v0 * t)
+                createATGraph(a, t)
+                createVTGraph(a, t, v0)
                 return `Change in X: ${0.5 * a * t * t + (v0 * t)}`
 
             }else if (a == null) {
                 //delta(x) = 1/2 * a * t^2 + v0 * t
                 // delx - (v0 * t) = 1/2t^2 * a
                 // 2(delx - (v0*t))/t^2 = a
+                a = 2 * (delx - (v0 * t))/(t * t)
+                createATGraph(a, t)
+                createVTGraph(a, t, v0)
                 return `Acceleration: ${2 * (delx - (v0 * t))/(t * t)}`
             }else if (t == null) {
                 //delta(x) = 1/2 * a * t^2 + v0 * t
@@ -250,11 +257,17 @@ function solveEquation3(delx, a, t, v0) {
                 // c = -delx
                 // a = 1/2a
                 // (-v0 +- sqrt(v0^2 - (2*a*-delx)))/a
+                t = ((-1 * v0) + Math.sqrt((v0 * v0) - (2 * a * (-1 * delx))))/a
+                createATGraph(a, t)
+                createVTGraph(a, t, v0)
                 return `Time: ${((-1 * v0) + Math.sqrt((v0 * v0) - (2 * a * (-1 * delx))))/a} OR ${((-1 * v0) - Math.sqrt((v0 * v0) - (2 * a * (-1 * delx))))/a}... This is because it evalutes to a quadratic equation, and the quadratic formula yields 2 results.`
             }else if (v0 == null) {
                 //delta(x) = 1/2 * a * t^2 + v0 * t
                 //delx - 1/2at^2 = v0t
                 // (delx - 1/2at^2)/t = v0
+                v0 = (delx - (0.5 * a * t * t))/t
+                createATGraph(a, t)
+                createVTGraph(a, t, v0)
                 return `Initial Velocity: ${(delx - (0.5 * a * t * t))/t}`
             }
         } catch (error) {
@@ -285,21 +298,33 @@ function solveEquation2(vf, a, delx, vi) { //Should be working.... TODO: Further
         try {
             if (vf == null) {
                 // vf = sqrt(2a * delx + vi^2)
+                vf = (Math.sqrt(2*a * delx + (vi * vi)))
+                createATGraph(a, (vf-vi)/a)
+                createVTGraph(a, (vf-vi)/a, vi)
                 return `Final Velocity: ${(Math.sqrt(2*a * delx + (vi * vi)))}`
             }else if (a == null) {
                 // vf = sqrt(2a * delx + vi^2)
                 // vf^2 = 2a * delx + vi^2
                 // (vf^2 - vi^2)/(2 * delx) = a
+                a = (vf * vf - (vi * vi))/(2 * delx)
+                createATGraph(a, (vf-vi)/a)
+                createVTGraph(a, (vf-vi)/a, vi)                
                 return `Acceleration: ${(vf * vf - (vi * vi))/(2 * delx)}`
             }else if (delx == null) {
                 // vf = sqrt(2a * delx + vi^2)
                 // vf^2 = 2a + vi^2 * delx
                 // delx = (vf * vf - vi^2)/(2 * a)
+                delx = (((vf * vf)-(vi * vi))/(2 * a))
+                createATGraph(a, (vf-vi)/a)
+                createVTGraph(a, (vf-vi)/a, vi)
                 return `Change in X: ${(((vf * vf)-(vi * vi))/(2 * a))}`
 
             }else if (vi == null) {
                 //vf^2 = 2a*delx + vi^2
                 //vf^2-2adelx = vi^2
+                vi = Math.sqrt((vf * vf)-(2 * a *delx))
+                createATGraph(a, (vf-vi)/a)
+                createVTGraph(a, (vf-vi)/a, vi)
                 return `Initial Velocity: ${Math.sqrt((vf * vf)-(2 * a *delx))}`
             }
             
