@@ -64,6 +64,81 @@ function cleargraphs() {
     Plotly.purge(atgraph)
     Plotly.purge(vtgraph)
 }
+function createXTGraph(acceleration, time, initialvel) {
+    let data = {};
+    data['x'] = []
+    data['t'] = []
+    let oop = 0
+
+    
+    if (time < 0) {
+        while (oop>(time)) {
+            data['t'].push(oop)
+            data['x'].push((0.5 * acceleration * oop * oop) + (initialvel * oop))
+            oop -= Math.abs(time)/100
+    
+        };
+
+    }else if (time > 0) {
+        while (oop<(time)) {
+            data['t'].push(oop)
+            data['x'].push((0.5 * acceleration * oop * oop) + (initialvel * oop))
+            oop += time/100
+    
+        };
+    }else {
+
+        while (oop<5) {
+            data['t'].push(oop)
+            data['x'].push((0.5 * acceleration * oop * oop) + (initialvel * oop))
+            oop += 0.1
+    
+        };
+    }
+
+
+    let layout = {
+        title: {
+            text:'Position vs. Time',
+            font: {
+              family: 'Courier New, monospace',
+              size: 24
+            },
+            xref: 'paper',
+            x: 0.05,
+          },
+          xaxis: {
+            title: {
+              text: 'Time',
+              font: {
+                family: 'Courier New, monospace',
+                size: 18,
+                color: '#7f7f7f'
+              }
+            },
+          },
+          yaxis: {
+            title: {
+              text: 'Position',
+              font: {
+                family: 'Courier New, monospace',
+                size: 18,
+                color: '#7f7f7f'
+              }
+            }
+          }
+        
+        
+        
+    }
+    console.log(data)
+    trace = { x:data['t'], y:data['x'] , type:'scatter'}
+    fig = {
+        data: [trace],
+        layout:layout
+    }
+    Plotly.react(xtgraph, fig)
+}
 function createVTGraph(acceleration, time, initialvel) {
     let data = {};
     data['v'] = []
@@ -373,7 +448,9 @@ function solveEquation1(v, a, t, v0) {
                 // v = at + v0
                 v = a * t +v0
                 createATGraph(a, t)
-
+                createVTGraph(a, t, v0)
+                createXTGraph(a, t, v0)
+                
                 return `Final Velocity: ${a * t + v0}`;
             }else if (a == null) {
                 // v = at + v0
@@ -382,6 +459,7 @@ function solveEquation1(v, a, t, v0) {
                 a = (v-v0)/t
                 createATGraph(a, t)
                 createVTGraph(a, t, v0)
+                createXTGraph(a, t, v0)
 
                 return `Acceleration: ${(v-v0)/t}`
             }else if (t == null) {
@@ -391,6 +469,7 @@ function solveEquation1(v, a, t, v0) {
                 t = (v-v0)/a
                 createATGraph(a, t)
                 createVTGraph(a, t, v0)
+                createXTGraph(a, t, v0)
 
 
                 return `Time: ${(v-v0)/a}`
@@ -400,6 +479,7 @@ function solveEquation1(v, a, t, v0) {
                 v0 = v-(a*t)
                 createATGraph(a, t)
                 createVTGraph(a, t, v0)
+                createXTGraph(a, t, v0)
 
 
                 return `Initial Velocity: ${v-(a*t)}`
