@@ -5,3 +5,41 @@
     width:500px;
     height:500px;
 }
+body {
+    background-color:rgb(40,40,40);
+    color:white;
+    padding: 10px;
+    margin: 5px;
+}
+button {
+    padding: 10px;
+    border: none;
+    text-decoration: none;
+    color:white;
+    background-color:red;
+}
+button:hover {
+    color:black;
+    background-color:white;
+}
+#eqs {
+    padding:10px;
+    color:red;
+    background-color:black;
+    font-weight:bold;
+}
+#eqs > option {
+    border:1px solid white;
+    color:red;
+    background-color:black;
+    font-weight:bold;
+}
+form > input {
+    padding:10px;
+    color:white;
+    background-color:black;
+    margin:10px;
+}
+.answer {
+    font-size:20px;
+}
