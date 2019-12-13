@@ -34,13 +34,12 @@ function ready() {
         document.forms.eqSelect.classList.remove('hidden')
     
     }
+    tomainmenu()
 };
 
 function bringUpForm(equation)  {
     // console.log(document.forms.eqSelect.classList)
-    atgraph.classList.remove('hidden')
-    vtgraph.classList.remove('hidden')
-    xtgraph.classList.remove('hidden')
+
     document.forms.eqSelect.classList.add('hidden')
     back.classList.remove('hidden')
     // console.log(document.forms.eqSelect.classList)
@@ -71,8 +70,14 @@ function cleargraphs() {
     Plotly.purge(atgraph)
     Plotly.purge(vtgraph)
     Plotly.purge(xtgraph)
+    xtgraph.classList.add('hidden')
+    vtgraph.classList.add('hidden')
+    atgraph.classList.add('hidden')
+
 }
 function createXTGraph(acceleration, time, initialvel) {
+
+    xtgraph.classList.remove('hidden')
     let data = {};
     data['x'] = []
     data['t'] = []
@@ -110,17 +115,17 @@ function createXTGraph(acceleration, time, initialvel) {
             text:'Position vs. Time',
             font: {
               family: 'Courier New, monospace',
-              size: 24
+              size: 14
             },
             xref: 'paper',
-            x: 0.05,
+            x: 0.00,
           },
           xaxis: {
             title: {
               text: 'Time',
               font: {
                 family: 'Courier New, monospace',
-                size: 18,
+                size: 12,
                 color: '#7f7f7f'
               }
             },
@@ -130,7 +135,7 @@ function createXTGraph(acceleration, time, initialvel) {
               text: 'Position',
               font: {
                 family: 'Courier New, monospace',
-                size: 18,
+                size: 12,
                 color: '#7f7f7f'
               }
             }
@@ -148,6 +153,7 @@ function createXTGraph(acceleration, time, initialvel) {
     Plotly.react(xtgraph, fig)
 }
 function createVTGraph(acceleration, time, initialvel) {
+    vtgraph.classList.remove('hidden')
     let data = {};
     data['v'] = []
     data['t'] = []
@@ -185,17 +191,17 @@ function createVTGraph(acceleration, time, initialvel) {
             text:'Velocity vs. Time',
             font: {
               family: 'Courier New, monospace',
-              size: 24
+              size: 14
             },
             xref: 'paper',
-            x: 0.05,
+            x: 0.00,
           },
           xaxis: {
             title: {
               text: 'Time',
               font: {
                 family: 'Courier New, monospace',
-                size: 18,
+                size: 12,
                 color: '#7f7f7f'
               }
             },
@@ -205,7 +211,7 @@ function createVTGraph(acceleration, time, initialvel) {
               text: 'Velocity',
               font: {
                 family: 'Courier New, monospace',
-                size: 18,
+                size: 12,
                 color: '#7f7f7f'
               }
             }
@@ -223,6 +229,8 @@ function createVTGraph(acceleration, time, initialvel) {
     Plotly.react(vtgraph, fig)
 }
 function createATGraph(acceleration, time) {
+    atgraph.classList.remove('hidden')
+
     let data = {};
     data['a'] = []
     data['t'] = []
@@ -261,17 +269,17 @@ function createATGraph(acceleration, time) {
             text:'Acceleration vs. Time',
             font: {
               family: 'Courier New, monospace',
-              size: 24
+              size: 14
             },
             xref: 'paper',
-            x: 0.05,
+            x: 0.00,
           },
           xaxis: {
             title: {
               text: 'Time',
               font: {
                 family: 'Courier New, monospace',
-                size: 18,
+                size: 12,
                 color: '#7f7f7f'
               }
             },
@@ -281,7 +289,7 @@ function createATGraph(acceleration, time) {
               text: 'Acceleration',
               font: {
                 family: 'Courier New, monospace',
-                size: 18,
+                size: 12,
                 color: '#7f7f7f'
               }
             }

@@ -9,7 +9,9 @@
     <title>Kinematic Equation Solver</title>
 </head>
 <body>
-    <form name="eqSelect">
+    <h1>Kinematic Equation Solver</h1>
+
+    <form name="eqSelect" id='eqsform'>
         <label for='equation'>Select the option for which you have 3 out of the 4 values: </label>
         <br>
         <select name="equation" id="eqs">
@@ -82,10 +84,13 @@
         <input type="number" name="t">
         <br>
     </form>
+<div id='graphcontainer'>
     <div id='atgraph' class='graph'></div>
     <div id='vtgraph' class='graph'></div>
     <div id='xtgraph' class='graph'></div>
+</div>
     <button type='button' id='back' class='hidden'>Go back</button>
+
     <script src="kinematics.js"></script>
 </body>
 </html>
