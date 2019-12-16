@@ -9,12 +9,14 @@
     // String formatting in JS -> Use backticks, ${} as formatting
     // Try/Catch blocks -> Do something. If there's an error, do something else. Finally, do something regardless
     // parseFloat(value) -> Takes a string, returns a float. If the string doesn't yield a number, returns NaN (which is a value)
+    // Plotly.js Library -> Graphs
+
 function ready() {
     let eqforms = [document.forms.equation1, document.forms.equation2, document.forms.equation3]
     let selection = document.forms.eqSelect.elements.equation
     solve.onclick = function() {
         bringUpForm(selection.value)
-        console.log(selection.value)
+        // console.log(selection.value)
     }
     back.onclick = function() {
         tomainmenu()
@@ -38,11 +40,11 @@ function ready() {
 };
 
 function bringUpForm(equation)  {
-    // console.log(document.forms.eqSelect.classList)
+    // // console.log(document.forms.eqSelect.classList)
 
     document.forms.eqSelect.classList.add('hidden')
     back.classList.remove('hidden')
-    // console.log(document.forms.eqSelect.classList)
+    // // console.log(document.forms.eqSelect.classList)
     if (equation == 'eq1') {
         document.forms.equation1.classList.remove('hidden')
         document.forms.equation1.onchange = function() {
@@ -52,13 +54,13 @@ function bringUpForm(equation)  {
     }else if (equation == 'eq2') {
         document.forms.equation2.classList.remove('hidden')
         document.forms.equation2.onchange = function() {
-            console.log(this.elements.vf.value)
+            // console.log(this.elements.vf.value)
             eq2answer.innerHTML = solveEquation2(this.elements.vf.value, this.elements.a.value, this.elements.delx.value, this.elements.vi.value)
         }
 
     }else if (equation == 'eq3') {
         document.forms.equation3.classList.remove('hidden')
-        console.log(document.forms.equation3)
+        // console.log(document.forms.equation3)
         document.forms.equation3.onchange = function() {
             eq3answer.innerHTML = solveEquation3(this.elements.delx.value, this.elements.a.value, this.elements.t.value, this.elements.v0.value)
         }
@@ -144,7 +146,7 @@ function createXTGraph(acceleration, time, initialvel) {
         
         
     }
-    console.log(data)
+    // console.log(data)
     trace = { x:data['t'], y:data['x'] , type:'scatter'}
     fig = {
         data: [trace],
@@ -220,7 +222,7 @@ function createVTGraph(acceleration, time, initialvel) {
         
         
     }
-    console.log(data)
+    // console.log(data)
     trace = { x:data['t'], y:data['v'] , type:'scatter'}
     fig = {
         data: [trace],
@@ -298,7 +300,7 @@ function createATGraph(acceleration, time) {
         
         
     }
-    console.log(data)
+    // console.log(data)
     trace = { x:data['t'], y:data['a'] , type:'scatter'}
     fig = {
         data: [trace],
@@ -376,7 +378,7 @@ function solveEquation3(delx, a, t, v0) {
     }
 
 }
-function solveEquation2(vf, a, delx, vi) { //Should be working.... TODO: Further testing
+function solveEquation2(vf, a, delx, vi) { 
     let valarray = [vf, a, delx, vi];
     let nulls = 0;
     for (let index = 0;index < valarray.length; index++) {
@@ -447,10 +449,10 @@ function solveEquation1(v, a, t, v0) {
     let nulls = 0;
     for (let index = 0; index < valarray.length; index++) {
         const element = valarray[index];
-        console.log(element)
+        // console.log(element)
         if (element == '') {
             valarray[index] = null
-            console.log(valarray[index])
+            // console.log(valarray[index])
         }else {
             valarray[index] = parseFloat(element)
 
@@ -458,21 +460,21 @@ function solveEquation1(v, a, t, v0) {
         
     }
     
-    // console.log([v, a, t, v0])
+    // // console.log([v, a, t, v0])
     valarray.forEach(element => {
-        // console.log(element)
+        // // console.log(element)
         if (element == null) {
             nulls++;
         }
         
     });
-    // console.log([v, a, t, v0])
-    // console.log(nulls)
+    // // console.log([v, a, t, v0])
+    // // console.log(nulls)
     v = valarray[0]
     a = valarray[1]
     t = valarray[2]
     v0 = valarray[3]
-    console.log(valarray)
+    // console.log(valarray)
     if (nulls == 1){
         try {
             if (v == null) {
