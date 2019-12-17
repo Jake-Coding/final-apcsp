@@ -11,8 +11,11 @@
 ### What I learned
 * String formatting in JS
     * ``` `string ${variable}` ```
-* parseFloat(value)
+    * Example: ``` `X is: ${x}` ```
+* `parseFloat("number")`
     * returns a float of a string if it can be converted, else returns `NaN`
+    * Example: `parseFloat("3") -> 3.0`
+    * Example: `parseFloat('I like cows') -> NaN`
 * Plotly.js Library
     * Allows creation of graphs in an HTML page using JS
 --------
